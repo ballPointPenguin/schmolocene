@@ -6,31 +6,49 @@ const GeologicTimeBanner = () => {
 
   useEffect(() => {
     if (containerRef.current) {
-      // Animate the banner elements
-      gsap.from('.banner-item', {
-        opacity: 0,
-        y: 30,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: 'power2.out'
+      // Create marquee effect
+      gsap.to('.time-marquee', {
+        x: '-50%',
+        repeat: -1,
+        duration: 20,
+        ease: 'linear',
       })
     }
   }, [])
 
+  // Geological time periods to display
+  const periods = [
+    'Hadean', 'Archaean', 'Proterozoic', 'Cambrian', 'Ordovician', 'Silurian',
+    'Devonian', 'Carboniferous', 'Permian', 'Triassic', 'Jurassic', 'Cretaceous',
+    'Paleogene', 'Neogene', 'Quaternary', 'Holocene', 'Schmolocene?'
+  ]
+
   return (
     <div 
       ref={containerRef}
-      className="overflow-hidden py-2 bg-gradient-to-r from-earth-blue/30 via-earth-green/30 to-earth-brown/30 rounded-lg"
+      className="overflow-hidden py-3 bg-gradient-to-r from-earth-blue/20 via-earth-green/20 to-earth-brown/20 rounded-lg"
     >
-      <div className="flex justify-between px-1 items-center animate-marquee">
-        {['Hadean', 'Archaean', 'Proterozoic', 'Paleozoic', 'Mesozoic', 'Cenozoic', 'Quaternary', 'Holocene'].map((period, index) => (
-          <div 
-            key={index}
-            className="banner-item px-4 py-1 text-sm md:text-base font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap"
-          >
-            {period}
-          </div>
-        ))}
+      <div className="relative whitespace-nowrap">
+        <div className="time-marquee inline-block">
+          {periods.map((period, index) => (
+            <span 
+              key={index}
+              className="inline-block px-4 text-sm md:text-base font-medium text-gray-700 dark:text-gray-300"
+            >
+              {period}
+            </span>
+          ))}
+        </div>
+        <div className="time-marquee inline-block">
+          {periods.map((period, index) => (
+            <span 
+              key={index + periods.length}
+              className="inline-block px-4 text-sm md:text-base font-medium text-gray-700 dark:text-gray-300"
+            >
+              {period}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   )
