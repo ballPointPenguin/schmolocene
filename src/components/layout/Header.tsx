@@ -2,8 +2,8 @@ import { gsap } from 'gsap'
 import { useEffect, useRef } from 'react'
 
 type HeaderProps = {
-  setExercise: (exercise: 'chronology' | 'parent-division') => void
-  currentExercise: 'chronology' | 'parent-division'
+  setExercise: (exercise: 'home' | 'chronology' | 'parent-division' | 'explore') => void
+  currentExercise: 'home' | 'chronology' | 'parent-division' | 'explore'
 }
 
 const Header = ({ setExercise, currentExercise }: HeaderProps) => {
@@ -25,13 +25,14 @@ const Header = ({ setExercise, currentExercise }: HeaderProps) => {
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <h1 
           ref={titleRef}
-          className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-300 to-primary-500 mb-4 md:mb-0"
+          onClick={() => setExercise('home')}
+          className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-300 to-primary-500 mb-4 md:mb-0 cursor-pointer"
         >
           Holocene Schmolocene
         </h1>
         
         <nav>
-          <ul className="flex space-x-1 sm:space-x-4">
+          <ul className="flex flex-wrap justify-center gap-2">
             <li>
               <button 
                 onClick={() => setExercise('chronology')}
@@ -50,6 +51,16 @@ const Header = ({ setExercise, currentExercise }: HeaderProps) => {
                   : 'text-primary-100 hover:bg-slate-700'}`}
               >
                 Parent Divisions
+              </button>
+            </li>
+            <li>
+              <button 
+                onClick={() => setExercise('explore')}
+                className={`px-3 py-2 rounded-md transition-colors ${currentExercise === 'explore' 
+                  ? 'bg-primary-600 text-white' 
+                  : 'text-primary-100 hover:bg-slate-700'}`}
+              >
+                Explore Timeline
               </button>
             </li>
           </ul>
